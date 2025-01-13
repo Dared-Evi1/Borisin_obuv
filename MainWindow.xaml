@@ -1,0 +1,21 @@
+﻿<Window x:Class="Borisin_41.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Borisin_41"
+        mc:Ignorable="d"
+        Title="Борисин" Height="450" Width="800" Icon="Res/icon.ico" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Source="Res/logo.png" HorizontalAlignment="Left"></Image>
+        <TextBlock Text="обувь" FontSize="20" HorizontalAlignment="Center" Height="30" Width="75"></TextBlock>
+        <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
+        <Button Content=" Back" Name="BtnBack"  HorizontalAlignment="Right" Click="BtnBack_Click"></Button>
+
+    </Grid>
+</Window>

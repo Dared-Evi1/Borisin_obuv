@@ -1,0 +1,14 @@
+﻿<Page x:Class="Borisin_41.AddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Borisin_41"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddEditPage">
+
+    <Grid>
+        <TextBlock Text="вечер в хату" HorizontalAlignment="Center" Height="30" Width="175" FontSize="25"></TextBlock>
+    </Grid>
+</Page>
