@@ -8,7 +8,7 @@
         Title="Борисин" Height="450" Width="800" Icon="Res/icon.ico" >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
