@@ -13,10 +13,10 @@ namespace Borisin_41
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Borisin41Entities : DbContext
+    public partial class Borisin41Entities1 : DbContext
     {
-        public Borisin41Entities()
-            : base("name=Borisin41Entities")
+        public Borisin41Entities1()
+            : base("name=Borisin41Entities1")
         {
         }
     
@@ -30,15 +30,13 @@ namespace Borisin_41
         public virtual DbSet<PickUpPoint> PickUpPoint { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
-        private static Borisin41Entities _context;
-        public static Borisin41Entities GetContext()
+        private static Borisin41Entities1 _context;
+        public static Borisin41Entities1 GetContext()
         {
             if (_context == null)
-                _context = new Borisin41Entities();
+                _context = new Borisin41Entities1();
             return _context;
         }
-
     }
 }

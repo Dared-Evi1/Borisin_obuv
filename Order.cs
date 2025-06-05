@@ -24,10 +24,18 @@ namespace Borisin_41
         public System.DateTime OrderDate { get; set; }
         public System.DateTime OrderDeliveryDate { get; set; }
         public int OrderPickupPoint { get; set; }
+        public Nullable<int> OrderClientID { get; set; }
         public int OrderKod { get; set; }
         public string OrderStatus { get; set; }
-        public Nullable<int> OrderClientID { get; set; }
-    
+        public string clientFIO { get
+            {
+                if(User !=null)
+                    return User.UserSurname + " " + User.UserName + " " + User.UserPatronymic;
+                return null;
+            }
+            set { }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderProduct> OrderProduct { get; set; }
         public virtual PickUpPoint PickUpPoint { get; set; }

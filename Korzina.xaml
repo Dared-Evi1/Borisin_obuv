@@ -1,69 +1,53 @@
-﻿<Page x:Class="Borisin_41.ProductPage"
+﻿<Page x:Class="Borisin_41.Korzina"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Borisin_41"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="1000" FontFamily="Comic Sans MS"
-      Title="ProductPage">
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="Korzina">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="65"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
+        <WrapPanel Grid.Row="0">
+            <TextBlock Text="Дата формирования заказа" FontSize="14"></TextBlock>
+            <DatePicker Name="formzak" FontSize="14"></DatePicker>
+        </WrapPanel>
+        <WrapPanel Grid.Row="1">
+            <TextBlock Text="Дата доставки заказа" FontSize="14"></TextBlock>
+            <DatePicker Name="dostzak" FontSize="14"></DatePicker>
+        </WrapPanel>
+        <WrapPanel Grid.Row="2">
+            <TextBlock Text="ФИО клиента " FontSize="14"></TextBlock>
+            <TextBlock Name="FIO" FontSize="14"></TextBlock>
+        </WrapPanel>
+        <WrapPanel Grid.Row="3">
+            <TextBlock Text="Номер заказа" FontSize="14"></TextBlock>
+            <TextBlock Name="ordercount" FontSize="14"></TextBlock>
+        </WrapPanel>
+        <WrapPanel Grid.Row="5">
+            <TextBlock Text="Пункт выдачи" FontSize="14"></TextBlock>
+            <ComboBox Name="adress" DisplayMemberPath="PickUpPointFull" SelectedValuePath="PickUpPointID"></ComboBox>
+        </WrapPanel>
+        <WrapPanel Grid.Row="6">
+            <Button Name="save" Content="Сохранить" Click="save_Click" Grid.Row="6"></Button>
 
-            </Grid.ColumnDefinitions>
-            <Button Name="korzina" Click="korzina_Click" Grid.Column="4" Content="Корзина"></Button>
-            <WrapPanel Grid.Column="0" Orientation="Vertical">
-                <TextBlock Name="ima" FontSize="15"></TextBlock>
-                <TextBlock Name="role" FontSize="15"></TextBlock>
-                <TextBlock Name="Count" FontSize="15" ></TextBlock>
-            </WrapPanel>
-                <WrapPanel Orientation="Vertical" Grid.Column="1" Margin="5">
-                <TextBlock Text="поиск по наименованию"></TextBlock>
-                <TextBox Name="PoiskPoNaim" TextChanged="PoiskPoNaim_TextChanged"></TextBox>
-            </WrapPanel>
-            <WrapPanel Orientation="Vertical" Grid.Column="2" Margin="5">
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <RadioButton GroupName="Sort" Name="Vozrast" Checked="Vozrast_Checked"></RadioButton>
-                    <TextBlock Text="по возрастанию стоимости"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <RadioButton GroupName="Sort" Name="Ubiv" Checked="Ubiv_Checked" ></RadioButton>
-                    <TextBlock Text="по убыванию стоимости"></TextBlock>
-                </StackPanel>
-            </WrapPanel>
-            <WrapPanel Grid.Column="3" Margin="5" Orientation="Vertical">
-                <TextBlock Text="фильтрация по скидке"></TextBlock>
-                <ComboBox Name="FiltrSkidka" Width="150" SelectionChanged="FiltrSkidka_SelectionChanged">
-                    <TextBlock>все записи</TextBlock>
-                    <TextBlock>0-9,99%</TextBlock>
-                    <TextBlock>10-14,99%</TextBlock>
-                    <TextBlock>15 и более</TextBlock>
-                </ComboBox>
-            </WrapPanel>
-        </Grid>
-        <ListView Name="ProductListView" Grid.Row="1" SelectionChanged="ProductListView_SelectionChanged" MouseRightButtonDown="ProductListView_MouseRightButtonDown" >
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Добавить к заказу" Click="MenuItem_Click"></MenuItem>
-                </ContextMenu>
-            </ListView.ContextMenu>
-            
-            <ListView.ItemTemplate >
+        </WrapPanel>
+        <ListView Name="korzinaListView" Grid.Row="4" >
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
@@ -93,6 +77,11 @@
                         <WrapPanel Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Right">
                             <TextBlock Text="{Binding ProductDiscountAmount}" FontSize="35" ></TextBlock>
                             <TextBlock Text="%" FontSize="40"  ></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                            <Button Name="left" Content="-" Height="30" Width="30" Click="left_Click"></Button>
+                            <TextBlock Name="tovvkor" Text="{Binding Quantity}" FontSize="35"></TextBlock>
+                            <Button Name="right" Content="+" Height="30" Width="30" Click="right_Click"></Button>
                         </WrapPanel>
                     </Grid>
                 </DataTemplate>

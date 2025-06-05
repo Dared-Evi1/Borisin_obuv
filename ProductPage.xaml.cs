@@ -20,21 +20,55 @@ namespace Borisin_41
     /// </summary>
     public partial class ProductPage : Page
     {
-        public ProductPage()
+        public User _user;
+        private List<Product> _order = new List<Product>();
+        private int count1 = 0;
+        public string logi;
+        public string rol;
+
+        public ProductPage(User user)
         {
             InitializeComponent();
-            var currentProducts = Borisin41Entities.GetContext().Product.ToList();
+            _user = user;
+            korzina.Visibility = Visibility.Hidden;
+
+            var currentProducts = Borisin41Entities1.GetContext().Product.ToList();
             ProductListView.ItemsSource = currentProducts;
+            if(user != null)
+            {
+                logi = user.UserSurname +" "+ user.UserName + " "+ user.UserPatronymic;
+                ima.Text = logi;
+                switch (user.UserRole)
+                {
+                    case 1:
+                        rol = "Клиент";
+                        break;
+                    case 2:
+                        rol = "Менеджер";
+                        break;
+                    case 3:
+                        rol = "Администратор";
+                        break;
+                    default:
+                        rol = "Гость";
+                        break;
+
+                }
+            }
+            else
+            {
+                rol = "Гость";
+            }
+
+            role.Text = rol;
+
+
             UpdateProducts();
-        }
-        private void GO_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new AddEditPage());
         }
 
         private void UpdateProducts()
         {
-            var currentProducts = Borisin41Entities.GetContext().Product.ToList();
+            var currentProducts = Borisin41Entities1.GetContext().Product.ToList();
             if (FiltrSkidka.SelectedIndex == 0)
             {
                 currentProducts = currentProducts.Where(p => (Convert.ToDouble(p.ProductDiscountAmount) >= 0 && Convert.ToDouble(p.ProductDiscountAmount) <= 100)).ToList();
@@ -62,7 +96,11 @@ namespace Borisin_41
             {
                 ProductListView.ItemsSource = currentProducts.OrderBy(p => p.ProductCost).ToList();
             }
-            Count.Text = "количество " + currentProducts.Count.ToString() + " из " + Borisin41Entities.GetContext().Product.ToList().Count.ToString();
+            Count.Text = "количество " + currentProducts.Count.ToString() + " из " + Borisin41Entities1.GetContext().Product.ToList().Count.ToString();
+            if (count1 != 0)
+            {
+                korzina.Visibility = Visibility.Visible;
+            }
         }
         private void FiltrSkidka_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -85,6 +123,59 @@ namespace Borisin_41
         {
             UpdateProducts();
 
+        }
+
+        private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ProductListView.SelectedItems.Count > 1)
+            {
+                korzina.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                korzina.Visibility = Visibility.Hidden;
+            }
+            UpdateProducts();
+        }
+
+        private void korzina_Click(object sender, RoutedEventArgs e)
+        {
+
+            
+            if (_order.Any())
+            {
+                var select = _order.Select(p => new OrderProduct
+                {
+                    ProductArticleNumber = p.ProductArticleNumber,
+                    ProductCount = p.Quantity
+                }).ToList();
+                var korzinaWindow = new Korzina(select, _order, _user);
+                Manager.MainFrame.Navigate(new Korzina(select,_order, _user));
+
+            }
+            else
+            {
+                MessageBox.Show("Заказ пуст");
+            }
+        }
+
+        private void ProductListView_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Product selectProduct = ProductListView.SelectedItem as Product;
+            if (selectProduct != null)
+            {
+                count1++;
+                _order.Add(selectProduct);
+                korzina.Visibility = Visibility.Visible;
+                string c = Convert.ToString(count1);
+                MessageBox.Show("Товар добавлен к заказу");
+            }
+            UpdateProducts();
         }
     }
 }
